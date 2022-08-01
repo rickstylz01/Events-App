@@ -1,5 +1,5 @@
 const validateRegisterInput = require("../validation/register");
-const validateLoginInput = require("../../validation/login");
+const validateLoginInput = require("../validation/login");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -56,5 +56,64 @@ exports.register = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
+  }
+};
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  const { errors, isValid } = validateLoginInput;
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  try {
+    // Check if the user exists
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: 'Email or password incorrect'});
+    }
+
+    // Check if the encrypted password matches
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: 'Email or password incorrect' });
+    }
+
+    // Return jwt
+    const payload = {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      }
+    };
+
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: '10 minutes'},
+      (err, token) => {
+        if (err) throw err;
+        res.json({
+          success: true,
+          token: "Bearer " + token
+        });
+      }
+    );
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+};
+
+exports.retrieve = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.status(200).json({ user });
+  } catch (err) {
+    res.status(500).json(error);
   }
 };
