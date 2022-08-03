@@ -18,7 +18,7 @@ module.exports = function (req, res, next) {
         req.user = decoded.user;
         next();
       }
-    })j
+    })
   } catch (err) {
     res.status(500).json(error);
   }
