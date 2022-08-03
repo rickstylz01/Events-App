@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const UserController = require('../../controllers/usersController');
+const auth = require('../../middleware/auth');
 
 // @route POST api/users/register
 // @desc Register user
@@ -16,3 +17,5 @@ router.post('/login', UserController.login);
 // @desc GET user info
 // @access Public
 router.get('/user/info', auth, UserController.retrieve);
+
+module.exports = router;
