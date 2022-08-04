@@ -56,37 +56,45 @@ exports.login = async (req, res) => {
   try {
     // Check if the user exists
     let user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ msg: 'No registered email found'});
-    }
+    if (!user) return res.sendStatus(401);
 
     // Check if the encrypted password matches
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ msg: 'Email or password incorrect' });
+
+    if (isMatch) {
+      // create JWTs
+      const accessToken = jwt.sign(
+        {
+          user: {
+            "id": user.id,
+            "name": user.name,
+            "role": user.role
+          }
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: '40s'}
+      );
+      const refreshToken = jwt.sign(
+        {
+          user: {
+            "id": user.id,
+            "name": user.name,
+            "role": user.role
+          }
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: '1 minute'}
+      );
+
+      // Saving refresh token with current user
+      const currentUser = { ...user, refreshToken };
+
+      // Storing refresh token cookie as httpOnly
+      res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+      res.json({ accessToken });
+    } else {
+      res.sendStatus(401);
     }
-
-    // Return jwt
-    const payload = {
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role
-      }
-    };
-    console.log(`payload: `, payload);
-
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: '10 minutes'},
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
-
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

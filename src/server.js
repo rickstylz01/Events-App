@@ -1,17 +1,19 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
+const path = require('path');
 const db = require('./config/dbSetup');
 const port = process.env.PORT || 5000;
 const userRoutes = require('./routes/api/users');
-//======================
-//BODYPARSER
-//======================
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
-app.use(bodyParser.json());
+
+// Built-in middleware to handle urlencoded data
+// in other words, form data:
+// 'content-type: application/x-www-form-urlencoded'
+app.use(express.urlencoded({extended: false}));
+// Built-in middleware for json
+app.use(express.json());
+// Serve static files
+app.use(express.static(path.join(__dirname, '/public')));
 //======================
 //DB CONFIG
 //======================
