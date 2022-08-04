@@ -20,6 +20,6 @@ module.exports = function (req, res, next) {
       }
     })
   } catch (err) {
-    res.status(500).json(error);
+    res.status(500).json(err);
   }
 };
