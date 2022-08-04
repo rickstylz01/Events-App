@@ -1,18 +1,9 @@
-const validateRegisterInput = require("../validation/register");
-const validateLoginInput = require("../validation/login");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
-  // Form validation
-  const { errors, isValid } = validateRegisterInput(req.body);
   const { name, email, password } = req.body;
-
-  // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
 
   try {
     // If the user already exists
@@ -32,7 +23,6 @@ exports.register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();
-    console.log(user);
 
     // Return jwt
     const payload = {
@@ -61,12 +51,6 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  const { errors, isValid } = validateLoginInput;
-
-  // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
 
   try {
     // Check if the user exists
@@ -89,6 +73,7 @@ exports.login = async (req, res) => {
         email: user.email
       }
     };
+    console.log(`payload: `, payload);
 
     jwt.sign(
       payload,
