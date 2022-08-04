@@ -6,6 +6,12 @@ const db = require('./config/dbSetup');
 const port = process.env.PORT || 5000;
 const userRoutes = require('./routes/api/users');
 
+// custom middleware logger
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
 // Built-in middleware to handle urlencoded data
 // in other words, form data:
 // 'content-type: application/x-www-form-urlencoded'
