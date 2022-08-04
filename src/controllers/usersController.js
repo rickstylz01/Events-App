@@ -72,7 +72,7 @@ exports.login = async (req, res) => {
     // Check if the user exists
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ msg: 'Email or password incorrect'});
+      return res.status(400).json({ msg: 'No registered email found'});
     }
 
     // Check if the encrypted password matches
@@ -96,10 +96,7 @@ exports.login = async (req, res) => {
       { expiresIn: '10 minutes'},
       (err, token) => {
         if (err) throw err;
-        res.json({
-          success: true,
-          token: "Bearer " + token
-        });
+        res.json({ token });
       }
     );
 
@@ -114,6 +111,6 @@ exports.retrieve = async (req, res) => {
     const user = await User.findById(req.user.id).select('-password');
     res.status(200).json({ user });
   } catch (err) {
-    res.status(500).json(error);
+    res.status(500).json(err);
   }
 };
