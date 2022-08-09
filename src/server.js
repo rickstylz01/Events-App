@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cors = require('cors');
-const corsOptions = require('/src/config/corsOptions');
+const corsOptions = require('./config/corsOptions');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const connectDB = require('./config/dbSetup');
@@ -16,9 +16,7 @@ app.use(logger);
 // may want to remove after development---^
 app.use(cors(corsOptions));
 
-// Built-in middleware to handle urlencoded data
-// in other words, form data:
-// 'content-type: application/x-www-form-urlencoded'
+// Built-in middleware to handle form data
 app.use(express.urlencoded({extended: false}));
 
 // Built-in middleware for json
