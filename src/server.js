@@ -6,6 +6,7 @@ const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
+const cookieParser = require('cookie-parser');
 const connectDB = require('./config/dbSetup');
 const port = process.env.PORT || 5000;
 const userRoutes = require('./routes/api/users');

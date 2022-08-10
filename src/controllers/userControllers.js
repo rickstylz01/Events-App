@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, roles, date } = req.body;
 
   try {
     // If the user already exists
@@ -16,7 +16,9 @@ exports.register = async (req, res) => {
     user = new User({
       name,
       email,
-      password
+      password,
+      roles,
+      date
     });
 
     // Hash user password
@@ -30,14 +32,15 @@ exports.register = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role
+        role: user.roles,
+        date: user.date
       }
     };
     console.log(payload);
 
     jwt.sign(
       payload,
-      process.env.JWT_SECRET,
+      process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '5 minutes'},
       (err, token) => {
         if (err) throw err;
@@ -71,7 +74,7 @@ exports.login = async (req, res) => {
             "role": user.role
           }
         },
-        process.env.JWT_SECRET,
+        process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '40s'}
       );
       const refreshToken = jwt.sign(
