@@ -27,3 +27,7 @@
 20220810	13:27:39	aef1667a-2980-4311-bd59-26417d0714db	POST	undefined	/login
 20220810	13:27:47	80729c64-ea80-4abc-8f8a-9c1fa25bff26	GET	undefined	/user/info
 20220810	13:28:05	5dd170bb-4a97-4724-8b0e-9a53e3689491	GET	undefined	/user/info
+20220810	13:57:55	b833771b-4d8d-4e65-851d-f1f474490593	POST	undefined	/login
+20220810	13:59:10	471070a7-e031-45ba-a07f-2a8bab4aa6ea	GET	undefined	/refresh
+20220810	13:59:38	c831f753-f613-4709-a7c4-f2a48d596282	POST	undefined	/login
+20220810	13:59:40	8c5de422-2b2c-4517-bb4f-80103dd67abd	GET	undefined	/refresh
