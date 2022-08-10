@@ -23,6 +23,9 @@ app.use(express.urlencoded({extended: false}));
 // Built-in middleware for json
 app.use(express.json());
 
+// Middleware for cookies
+app.use(cookieParser());
+
 // Serve static files
 app.use(express.static(path.join(__dirname, '/public')));
 //======================
