@@ -3,7 +3,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
-  const { name, email, password, roles, date } = req.body;
+  const { name, email, password, date } = req.body;
+  if (!email || !password) return res.status(400).json({ 'message': 'Username and password are required.' });
 
   try {
     // If the user already exists
@@ -17,7 +18,7 @@ exports.register = async (req, res) => {
       name,
       email,
       password,
-      roles,
+      "roles": { "User": 2001 },
       date
     });
 
@@ -65,13 +66,13 @@ exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
+      const roles = Object.values(user.roles)
       // create JWTs
       const accessToken = jwt.sign(
         {
-          user: {
-            "id": user.id,
+          "UserInfo": {
             "name": user.name,
-            "role": user.role
+            "roles": roles
           }
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -80,9 +81,7 @@ exports.login = async (req, res) => {
       const refreshToken = jwt.sign(
         {
           user: {
-            "id": user.id,
-            "name": user.name,
-            "role": user.role
+            "name": user.name
           }
         },
         process.env.REFRESH_TOKEN_SECRET,
@@ -93,7 +92,7 @@ exports.login = async (req, res) => {
       const currentUser = { ...user, refreshToken };
 
       // Storing refresh token cookie as httpOnly
-      res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+      res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
       res.json({ accessToken });
     } else {
       res.sendStatus(401);
