@@ -11,8 +11,10 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./config/dbConnect');
 const port = process.env.PORT || 5000;
 const userRoutes = require('./routes/api/users');
+const registerRoute = require('./routes/register');
 const refreshRoute = require('./routes/refresh');
 const logoutRoute = require('./routes/logout');
+const loginRoute = require('./routes/login');
 
 
 // Connect to MongoDB
@@ -41,6 +43,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(userRoutes);
 app.use(refreshRoute);
 app.use(logoutRoute);
+app.use(loginRoute);
+app.use(registerRoute);
 
 app.use(errorHandler);
 //======================

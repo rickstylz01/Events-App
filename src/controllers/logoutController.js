@@ -7,14 +7,16 @@ const handleLogout = async (req, res) => {
   const refreshToken = cookies.jwt;
 
   // is refresh token in db
-  const foundUser = User.find(refreshToken);
+  const foundUser = await User.findOne({ refreshToken }).exec();
   if (!foundUser) {
     res.clearCookie('jwt', {httpOnly: true});
     return res.sendStatus(204);
   }
 
   // Delete refresh token in db
-  // set when he gets to the mongo portion
+  foundUser.refreshToken = '';
+  const result = await foundUser.save();
+  console.log(result);
 
   res.clearCookie('jwt', { httpOnly: true }); // secure: true - only serves on https
   res.sendStatus(204);

@@ -29,4 +29,4 @@ const UserSchema = new Schema({
   refreshToken: String
 });
 
-module.exports = User = mongoose.model("users", UserSchema);
+module.exports =  mongoose.model("User", UserSchema);
