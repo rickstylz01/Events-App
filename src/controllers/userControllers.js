@@ -89,7 +89,7 @@ exports.login = async (req, res) => {
       );
 
       // Saving refresh token with current user
-      const currentUser = { ...user, refreshToken };
+
 
       // Storing refresh token cookie as httpOnly
       res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
