@@ -77,3 +77,5 @@
 20220811	16:43:39	7ef6854b-4edf-4ee4-9a3a-b25de05417a3	POST	undefined	/login
 20220811	16:43:45	9b0df9d5-9f78-4a86-b0a0-5f3e8142585a	GET	undefined	/refresh
 20220811	16:43:59	2c82f963-1dd5-4c9a-aba0-0df8cdaa8fb5	GET	undefined	/refresh
+20220811	16:50:47	b898dff2-1407-4972-8897-ce48f25f6a78	POST	undefined	/login
+20220811	16:50:50	595fe4d8-c6fa-4b38-8e87-fa947858f403	GET	undefined	/logout

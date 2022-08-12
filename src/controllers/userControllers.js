@@ -1,10 +1,31 @@
 const User = require("../models/User");
 
-exports.retrieve = async (req, res) => {
-  try {
-    const user = await User.findOne(req.email)
-    res.status(200).json({ user });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+const getAllUsers = async (req, res) => {
+  const users = await User.find();
+  if (!users) return res.status(204).json({ 'message': 'No users found' });
+  res.json(users);
 };
+
+const deleteUser = async (req, res) => {
+  if (!req?.body?.id) return res.status(400).json({ "message": 'User ID required' });
+  const user = await User.findOne({ _id: req.body.id }).exec()
+  if (!user) {
+    return res.status(204).json({ 'message': `User ID ${req.body.id} not found`});
+  }
+  const result = await user.deletOne({ _id: req.body.id });
+  res.json(result);
+};
+
+const getUser = async (req, res) => {
+  if (!req.pramams?.id) return res.status(400).json({ 'message': 'User ID required' });
+  const user = await User.findOne({ _id: req.params.id }).exec();
+  if (!user) {
+    return res.status(204).json({ 'message': `User ID ${req.body.id} not found` });
+  }
+}
+
+module.exports = {
+  getAllUsers,
+  getUser,
+  deleteUser
+}
