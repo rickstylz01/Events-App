@@ -9,6 +9,7 @@ const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/dbConnect');
+const verifyJWT = require("./middleware/verifyJWT");
 const port = process.env.PORT || 5000;
 const userRoutes = require('./routes/api/users');
 const registerRoute = require('./routes/register');
@@ -40,11 +41,13 @@ app.use(express.static(path.join(__dirname, '/public')));
 //======================
 //ROUTES
 //======================
-app.use(userRoutes);
 app.use(refreshRoute);
 app.use(logoutRoute);
 app.use(loginRoute);
 app.use(registerRoute);
+
+app.use(verifyJWT);
+app.use(userRoutes);
 
 app.use(errorHandler);
 //======================

@@ -17,7 +17,7 @@ const deleteUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  if (!req.pramams?.id) return res.status(400).json({ 'message': 'User ID required' });
+  if (!req.params?.id) return res.status(400).json({ 'message': 'User ID required' });
   const user = await User.findOne({ _id: req.params.id }).exec();
   if (!user) {
     return res.status(204).json({ 'message': `User ID ${req.body.id} not found` });
