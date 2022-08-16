@@ -1,0 +1,13 @@
+.first-container {
+  height: 75vh;
+}
+
+.monospace-font {
+  font-family: monospace;
+}
+
+.button-style {
+  width: 140px;
+  border-radius: 3px;
+  letter-spacing: 1.5px;
+}
