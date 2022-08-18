@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
 import './register.css';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheck, faInfoCircle, faTimes} from "@fortawesome/free-solid-svg-icons";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}/;
@@ -71,6 +73,12 @@ const Register = () => {
             <div className="input-field col s12">
               <label htmlFor="name">
                 Name:
+                <span className={validName ? "valid" : "hide"}>
+                  <FontAwesomeIcon icon={faCheck} />
+                </span>
+                <span className={validName || !user ? "hide" : "invalid"}>
+                  <FontAwesomeIcon icon={faTimes} />
+                </span>
               </label>
               <input
                 onChange={(e) => setUser(e.target.value)}
@@ -85,6 +93,7 @@ const Register = () => {
                 onBlur={() => setUserFocus(false)}
               />
               <p id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen" }>
+                <FontAwesomeIcon icon={faInfoCircle} />
                 4 to 24 characters.<br/>
                 Must begin with a letter.<br/>
                 Letters, numbers, underscores, hyphens allowed.
