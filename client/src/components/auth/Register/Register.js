@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
 import './register.css';
 
@@ -6,7 +6,7 @@ const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}/;
 
 const Register = () => {
-  userRef() = useRef();
+  const userRef = useRef();
   const errRef = useRef();
 
   const [user, setUser] = useState('');
@@ -24,8 +24,34 @@ const Register = () => {
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
 
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  //validate user name
+  useEffect(() => {
+    const result = USER_REGEX.test(user);
+    console.log(result);
+    console.log(user);
+    setValidName(result);
+  }, [user]);
+
+  useEffect(() => {
+    const result = PWD_REGEX.test(pwd);
+    console.log(result);
+    console.log(pwd);
+    setValidPwd(result);
+    const match = pwd === matchPwd;
+    setValidMatch(match);
+  }, [pwd, matchPwd]);
+
+  useEffect(() => {
+    setErrMsg('');
+  }, [user, pwd, matchPwd]);
+
   return(
-    <div className="container">
+    <section className="container">
+      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
       <div className="row">
         <div className="col s8 offset-s2">
           <Link to="/" className="btn-flat waves-effect">
@@ -43,12 +69,26 @@ const Register = () => {
           </div>
           <form noValidate onSubmit={handleSubmit}>
             <div className="input-field col s12">
+              <label htmlFor="name">
+                Name:
+              </label>
               <input
-                onChange={handleOnChange}
-                value={state.name}
+                onChange={(e) => setUser(e.target.value)}
                 id="name"
                 type="text"
+                ref={userRef}
+                autoComplete="off"
+                required
+                aria-invalid={validName ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
               />
+              <p id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen" }>
+                4 to 24 characters.<br/>
+                Must begin with a letter.<br/>
+                Letters, numbers, underscores, hyphens allowed.
+              </p>
             </div>
             <div className="input-field col s12">
               <input
@@ -77,7 +117,7 @@ const Register = () => {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
