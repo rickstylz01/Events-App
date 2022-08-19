@@ -201,7 +201,7 @@ const Register = () => {
             <div className="col s12 paddingLeft">
               <button
                 className="btn btn-large waves-effect waves-light hoverable blue accent-3 submit-button-style"
-                disabled={!validName || !validPwd || !validMatch ? true : false}
+                disabled={!validName || !validPwd || !validMatch}
               >
                 Sign up
               </button>
