@@ -6,7 +6,7 @@ import {faCheck, faInfoCircle, faTimes} from "@fortawesome/free-solid-svg-icons"
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}/;
-const EMAIL_REGEX = /^\S+@\S+\. \S+/;
+const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const Register = () => {
   const userRef = useRef();
