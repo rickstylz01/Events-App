@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import './register.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faInfoCircle, faTimes} from "@fortawesome/free-solid-svg-icons";
+import axios from '../../../api/axios';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}/;
-const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+const REGISTER_URL = '/register';
 
 const Register = () => {
   const userRef = useRef();
@@ -68,11 +70,32 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if button enabled with JS hack
+    // verification check if button enabled with JS hack
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
     if (!v1 || !v2) {
       setErrMsg("Invalid Entry");
+    }
+    try {
+      const response = await axios.post(REGISTER_URL,
+        JSON.stringify({ user, pwd, email }),
+        {
+          headers: { 'Content-Type': 'application/json'},
+          withCredentials: true
+        }
+        );
+      console.log(response.data);
+      console.log(response.accessToken);
+      // clear input fields
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg('No Server Response')
+      } else if (err.response?.status === 409) {
+        setErrMsg('Username Taken');
+      } else {
+        setErrMsg('Registration Failed')
+      }
+      errRef.current.focus();
     }
   }
 
