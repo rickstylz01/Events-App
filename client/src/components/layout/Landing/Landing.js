@@ -22,6 +22,13 @@ const Landing = () => {
               Register
             </Link>
           </div>
+          <div className="col s6">
+            <Link
+              to="/login"
+              className="btn btn-large waves-effect waves-light waves-light hoverable blue accent-3 button-style">
+              Login
+            </Link>
+          </div>
         </div>
       </div>
     </div>
