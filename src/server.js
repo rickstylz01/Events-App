@@ -8,6 +8,7 @@ const corsOptions = require('./config/corsOptions');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
+const credentials = require('./middleware/credentials');
 const connectDB = require('./config/dbConnect');
 const verifyJWT = require("./middleware/verifyJWT");
 const port = process.env.PORT || 5000;
@@ -23,6 +24,10 @@ connectDB();
 
 // custom middleware logger
 app.use(logger);
+
+// Handle options credentials check - before CORS!
+// and fetch cookies credentials requirement
+app.use(credentials);
 
 // may want to remove after development---^
 app.use(cors(corsOptions));
