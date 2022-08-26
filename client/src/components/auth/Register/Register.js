@@ -115,8 +115,7 @@ const Register = () => {
               <b>Register</b> below
             </h4>
             <p className="grey-text text-darken-1">
-              Already have an account?
-              <Link to="/login">Log in</Link>
+              Already have an account? <Link to="/login">Log in</Link>
             </p>
           </div>
           <form noValidate onSubmit={handleSubmit}>

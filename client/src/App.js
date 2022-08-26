@@ -7,14 +7,14 @@ import Login from "./components/auth/Login/Login";
 
 function App() {
   return (
-    <div className="App">
+    <main className="App">
       <Navbar />
       <Routes>
-        <Route exact path="/" element={<Landing />} />
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/" element={<Landing />}/>
+        <Route exact path="/register" element={<Register />}/>
+        <Route exact path="/login" element={ <Login />}/>
       </Routes>
-    </div>
+    </main>
   );
 }
 
