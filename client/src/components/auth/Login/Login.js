@@ -19,6 +19,13 @@ const Login = () => {
     setErrMsg('');
   }, [email, pwd])
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(email, pwd);
+    setEmail('');
+    setPwd('');
+  };
+
   return(
     <section className="container">
       <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
