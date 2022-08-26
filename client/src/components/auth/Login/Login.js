@@ -50,17 +50,18 @@ const Login = () => {
               />
             </div>
             <div className="input-field col s12">
+              <label htmlFor="password">Password:</label>
               <input
-                onChange={handleChange}
-                value={state.password}
-                id="password"
                 type="password"
+                id="password"
+                onChange={(e) => setPwd(e.target.value)}
+                value={pwd}
+                required
               />
-              <label htmlFor="password">Password</label>
             </div>
             <div className="col s12 paddingLeft-login-btn">
               <button className="btn btn-large waves-effect waves-light hoverable blue accent-3">
-                Login
+                Sign In
               </button>
             </div>
           </form>
