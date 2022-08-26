@@ -1,8 +1,24 @@
 import React from 'react';
+import { useRef, useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import './login.css';
 
 const Login = () => {
+  const userRef = useRef();
+  const errRef = useRef();
+
+  const [user, setUser] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [errMsg, setErrMsg] = useState('');
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, [])
+
+  useEffect(() => {
+    setErrMsg('');
+  }, [user, pwd])
+
   return(
     <div className="container">
       <div className="row marginTop">
