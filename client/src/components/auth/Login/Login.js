@@ -32,7 +32,7 @@ const Login = () => {
       <div className="row marginTop">
         <div className="col s8 offset-s2">
           <Link to="/" className="btn-flat waves-effect">
-            <i className="material-icons left">keyboard backspace</i>
+            <i className="material-icons left">keyboard_backspace</i>
             Back to home
           </Link>
           <div className="col s12 paddingLeft-login-btn">
