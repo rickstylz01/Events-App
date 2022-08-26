@@ -38,10 +38,10 @@ const Login = () => {
           </div>
           <form noValidate onSubmit={handleSubmit}>
             <div className="input-field col s12">
-              <label htmlFor="username">Email:</label>
+              <label htmlFor="email">Email:</label>
               <input
-                type="text"
-                id="username"
+                type="email"
+                id="email"
                 ref={emailRef}
                 autoComplete="off"
                 onChange={(e) => setEmail(e.target.value)}

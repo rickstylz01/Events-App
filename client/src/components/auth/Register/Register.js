@@ -121,8 +121,8 @@ const Register = () => {
           </div>
           <form noValidate onSubmit={handleSubmit}>
             <div className="input-field col s12">
-              <label htmlFor="name">
-                Name:
+              <label htmlFor="username">
+                Username:
                 <span className={validName ? "valid" : "hide"}>
                   <FontAwesomeIcon icon={faCheck} />
                 </span>
@@ -131,7 +131,7 @@ const Register = () => {
                 </span>
               </label>
               <input
-                id="name"
+                id="username"
                 type="text"
                 onChange={(e) => setUser(e.target.value)}
                 ref={userRef}
