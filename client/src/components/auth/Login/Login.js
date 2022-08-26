@@ -4,23 +4,24 @@ import { Link } from 'react-router-dom';
 import './login.css';
 
 const Login = () => {
-  const userRef = useRef();
+  const emailRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
-    userRef.current.focus();
+    emailRef.current.focus();
   }, [])
 
   useEffect(() => {
     setErrMsg('');
-  }, [user, pwd])
+  }, [email, pwd])
 
   return(
-    <div className="container">
+    <section className="container">
+      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
       <div className="row marginTop">
         <div className="col s8 offset-s2">
           <Link to="/" className="btn-flat waves-effect">
@@ -37,13 +38,16 @@ const Login = () => {
           </div>
           <form noValidate onSubmit={handleSubmit}>
             <div className="input-field col s12">
+              <label htmlFor="username">Email:</label>
               <input
-                onChange={handleChange}
-                value={state.email}
-                id="email"
-                type="email"
+                type="text"
+                id="username"
+                ref={emailRef}
+                autoComplete="off"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
               />
-              <label htmlFor="email">Email</label>
             </div>
             <div className="input-field col s12">
               <input
@@ -62,7 +66,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
