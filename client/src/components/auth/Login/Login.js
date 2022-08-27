@@ -5,7 +5,7 @@ import AuthContext from "../../../context/AuthProvider";
 import axios from "../../../api/axios";
 import './login.css';
 
-const LOGIN_URL = '/auth';
+const LOGIN_URL = '/login';
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
@@ -16,7 +16,6 @@ const Login = () => {
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
-
 
   useEffect(() => {
     emailRef.current.focus();

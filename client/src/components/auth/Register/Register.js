@@ -32,7 +32,6 @@ const Register = () => {
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState('');
-  // const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -93,7 +92,7 @@ const Register = () => {
       if (!err?.response) {
         setErrMsg('No Server Response')
       } else if (err.response?.status === 409) {
-        setErrMsg('Username Taken');
+        setErrMsg('Email Already Taken');
       } else {
         setErrMsg('Registration Failed')
       }
