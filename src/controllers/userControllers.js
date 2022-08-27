@@ -12,7 +12,7 @@ const deleteUser = async (req, res) => {
   if (!user) {
     return res.status(204).json({ 'message': `User ID ${req.body.id} not found`});
   }
-  const result = await user.deletOne({ _id: req.body.id });
+  const result = await user.deleteOne({ _id: req.body.id });
   res.json(result);
 };
 

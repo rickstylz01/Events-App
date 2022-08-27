@@ -6,6 +6,7 @@ const handleNewUser = async (req, res) => {
   if (!email || !pwd || !user) return res.status(400).json({ 'message': 'Username, email, and password are required.' });
 
   const duplicate = await User.findOne({ email }).exec();
+
   if (duplicate) return res.sendStatus(409);
 
   try {

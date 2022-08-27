@@ -1,14 +1,14 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { useRef, useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import AuthContext from "../../../context/AuthProvider";
 import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
 import './login.css';
 
-const LOGIN_URL = '/auth';
+const LOGIN_URL = '/login';
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
   const emailRef = useRef();
   const errRef = useRef();
 
@@ -16,7 +16,6 @@ const Login = () => {
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
-
 
   useEffect(() => {
     emailRef.current.focus();
