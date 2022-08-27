@@ -3,22 +3,21 @@ import bboyImg from '../../assets/bboy.JPG';
 
 const ProfileCard = () => {
   return (
-    <div className="card" style={{width: "18rem"}}>
-      <img src={bboyImg} className="card-img-top" alt="profile_image" />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-        </div>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">An item</li>
-          <li className="list-group-item">A second item</li>
-          <li className="list-group-item">A third item</li>
-        </ul>
-        <div className="card-body">
-          <a href="#" className="card-link">Card link</a>
-          <a href="#" className="card-link">Another link</a>
-        </div>
+    <div className="card">
+      <div className="card-image waves-effect waves-block waves-light">
+        <img className="activator" src={bboyImg} />
+      </div>
+      <div className="card-content">
+        <span className="card-title activator grey-text text-darken-4">Card Title<i
+          className="material-icons right">more_vert</i></span>
+        {/*change a to link*/}
+        <p><a href="#">Edit Profile</a></p>
+      </div>
+      <div className="card-reveal">
+        <span className="card-title grey-text text-darken-4">Card Title<i
+          className="material-icons right">close</i></span>
+        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+      </div>
     </div>
   );
 }
