@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           {/*public routes*/}
-          <Route path="/register" element={<Landing />}/>
+          <Route path="/" element={<Landing />}/>
           <Route path="register" element={<Register />}/>
           <Route path="login" element={ <Login />}/>
         </Route>
