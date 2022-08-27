@@ -3,6 +3,7 @@ import Navbar from "./components/layout/Navbar/Navbar";
 import Landing from './components/layout/Landing/Landing';
 import Register from "./components/auth/Register/Register";
 import { Route, Routes } from "react-router-dom";
+import RequireAuth from "./components/RequireAuth";
 import Login from "./components/auth/Login/Login";
 import Layout from "./components/layout/Layout";
 
