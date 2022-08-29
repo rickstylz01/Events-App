@@ -7,6 +7,13 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/auth/Login/Login";
 import Layout from "./components/layout/Layout";
 import ProfileCard from "./components/auth/Profile";
+import RequireAuth from "./components/RequireAuth";
+
+const ROLES = {
+  'User': 2001,
+  'Editor': 1984,
+  'Admin': 5150
+}
 
 function App() {
   return (
@@ -15,9 +22,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           {/*public routes*/}
-          <Route path="/" element={<Landing />}/>
+          <Route element={<RequireAuth allowedRoles={[2001]} />}>
+            <Route path="/" element={<Landing />}/>
+          </Route>
+
           <Route path="register" element={<Register />}/>
           <Route path="login" element={ <Login />}/>
+          {/*protected routes*/}
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
           <Route path="profile" element={ <ProfileCard /> } />
         </Route>
       </Routes>

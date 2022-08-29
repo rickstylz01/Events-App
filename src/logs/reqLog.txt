@@ -161,3 +161,7 @@
 20220827	17:44:32	e61eaef7-a53f-49f2-867e-ca1860f7a207	GET	undefined	/user/630957141cc58c3e0eb08644
 20220827	17:45:55	14118db8-fd6b-47f3-b99d-96e072836d19	POST	undefined	/login
 20220827	17:46:07	8ac66eab-f65f-4b04-94c7-dc18998a2187	GET	undefined	/user/630957141cc58c3e0eb08644
+20220829	14:38:20	4739ccb8-16d1-4d30-86dd-d0c13fa0be92	OPTIONS	http://localhost:3000	/login
+20220829	14:38:20	5f51e6f4-e04b-4133-8ce1-7feb15881ca9	POST	http://localhost:3000	/login
+20220829	14:49:31	b0651fd8-a9fa-4e61-89ea-ef502b6f6862	OPTIONS	http://localhost:3000	/login
+20220829	14:49:31	dcada2d8-0487-4b57-9a51-1de70fd32aea	POST	http://localhost:3000	/login
