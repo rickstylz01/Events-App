@@ -17,6 +17,9 @@ const ProfileCard = () => {
         <span className="card-title grey-text text-darken-4">Card Title<i
           className="material-icons right">close</i></span>
         <p>Here is some more information about this product that is only revealed once clicked on.</p>
+        <button className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+          Logout
+        </button>
       </div>
     </div>
   );
